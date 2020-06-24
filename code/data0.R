@@ -4,6 +4,11 @@ library(tidyverse)
 library(broom)
 library(directlabels)
 library(scales)
+
+path <- "C:/Users/ferna/OneDrive/Documentos/R/covid19/data/HIST_PAINEL_COVIDBR_16jun2020.xlsx"
+data0 <- read_excel(path)
+
+excel_sheets(path) %>% set_names()
 data0 <- read_excel("C:/Users/ferna/OneDrive/Documentos/R/covid19/data/HIST_PAINEL_COVIDBR_19mai2020.xlsx")
 
 datagovbr <- data0 %>% 
@@ -13,7 +18,8 @@ datagovbr <- data0 %>%
   mutate(wday = wday(data), 
          occday = yday(data) - min(yday(data)) + 1,
          obitosDia = obitosAcumulado - lag(obitosAcumulado),
-         obitos1a7 = ifelse(data == as.Date("2020-05-01") | # Labor day
+         obitos1a7 = ifelse(data == as.Date("2020-06-11") | # Corpus Christi
+                            data == as.Date("2020-05-01") | # Labor day
                             data == as.Date("2020-05-02") | 
                             # data == as.Date("2020-05-04") | 
                             data == as.Date("2020-04-21") | # Tiradentes day
